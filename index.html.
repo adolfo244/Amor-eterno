@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi amor 🤍</title>
+    <style>
+        :root {
+            --letter: #fdf5e6;
+            --letter-love: 500px;
+        }
+
+        body {
+            background-color: #ffc0cb;
+            background-image: radial-gradient(#ffffff 10%, transparent 10%), radial-gradient(#ffffff 10%, transparent 10%);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Pantalla rosa inicial */
+        #pantalla-inicio {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #ff007f;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            text-align: center;
+        }
+
+        .boton-corazon {
+            background: white;
+            color: #ff007f;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* La carta */
+        .Flores_Amarillas {
+            position: absolute;
+            width: 90%;
+            max-width: 400px;
+            height: var(--letter-love);
+            background: var(--letter);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 40px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 5px solid #ffffff;
+            display: none; 
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .contenedor-arriba { display: flex; justify-content: space-between; align-items: center; }
+        .texto-amor { width: 60%; color: #d63384; font-weight: bold; font-size: 0.9rem; text-align: left; }
+
+        /* Diseño del girasol/flor */
+        .arbol-corazon { width: 35%; display: flex; flex-direction: column; align-items: center; }
+        .copa {
+            width: 60px; height: 60px; background: #ffd700; position: relative;
+            transform: rotate(-45deg); margin-bottom: 20px;
+        }
+        .copa::before, .copa::after {
+            content: "🌻"; position: absolute; width: 60px; height: 60px;
+            background: #ffd700; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; font-size: 25px;
+        }
+        .copa::before { top: -30px; left: 0; }
+        .copa::after { left: 30px; top: 0; }
+        .tronco { width: 10px; height: 35px; background: #5d4037; border-radius: 4px; }
+
+        #reloj { font-size: 1rem; font-weight: bold; color: #d63384; border-top: 2px solid #ff69b4; padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div id="pantalla-inicio">
+        <h1 style="font-size: 60px; margin: 0;">🤍</h1>
+        <p>Sube el volumen y toca el botón</p>
+        <button class="boton-corazon" onclick="activar()">Abrir con amor 🤍</button>
+    </div>
+
+    <div id="player"></div>
+
+    <div class="Flores_Amarillas" id="mi-carta">
+        <div class="contenedor-arriba">
+            <div class="texto-amor">
+                <p>Flores Amarillas para el amor de mi vida: 🤍</p>
+                <p>Si pudiera elegir un lugar seguro, sería a tu lado.</p>
+                <p>Cuanto más tiempo estoy contigo más te amo.</p>
+                <p>— I Love You! —</p>
+            </div>
+            <div class="arbol-corazon">
+                <div class="copa"></div>
+                <div class="tronco"></div>
+            </div>
+        </div>
+        <div id="reloj">Cargando nuestro tiempo...</div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: '66yq-1PZtlQ', // Canción de Silvestre
+                playerVars: { 'autoplay': 0, 'controls': 0 }
+            });
+        }
+
+        function activar() {
+            if (player) player.playVideo();
+            document.getElementById('pantalla-inicio').style.display = 'none';
+            document.getElementById('mi-carta').style.display = 'flex';
+        }
+
+        // Reloj configurado para el 04 de enero de 2026
+        const fechaNovios = new Date(2026, 0, 4); 
+        function actualizarReloj() {
+            const ahora = new Date();
+            const diff = ahora - fechaNovios;
+            if (diff < 0) {
+                document.getElementById("reloj").innerText = "¡Falta poco para nuestro día! 🤍";
+                return;
+            }
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+            const m = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+            const s = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            document.getElementById("reloj").innerText = `${d} días ${h}:${m}:${s}`;
+        }
+        setInterval(actualizarReloj, 1000);
+        actualizarReloj();
+    </script>
+</body>
+  </html>
